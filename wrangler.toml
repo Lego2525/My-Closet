@@ -5,7 +5,7 @@ pages_build_output_dir = "./dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "closet-db"
-database_id = "YOUR_D1_DATABASE_ID"
+database_id = "af7009ab-9517-432d-a076-ca04d769ad5e"
 
 [[r2_buckets]]
 binding = "PHOTOS"
