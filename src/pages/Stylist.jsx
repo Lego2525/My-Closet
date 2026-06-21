@@ -1,6 +1,6 @@
 // src/pages/Stylist.jsx
 import { useState, useRef, useEffect } from 'react'
-import { useAppState } from '../hooks/useAppState.js'
+import { useAppState } from '../hooks/useAppState.jsx'
 import * as api from '../lib/api.js'
 
 const STARTERS = [

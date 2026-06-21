@@ -1,6 +1,6 @@
 // src/App.jsx
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { AppProvider } from './hooks/useAppState.js'
+import { AppProvider } from './hooks/useAppState.jsx'
 import BottomNav from './components/BottomNav.jsx'
 import Closet from './pages/Closet.jsx'
 import Outfits from './pages/Outfits.jsx'

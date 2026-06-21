@@ -1,6 +1,6 @@
 // src/components/AddItem.jsx
 import { useState } from 'react'
-import { useAppState } from '../hooks/useAppState.js'
+import { useAppState } from '../hooks/useAppState.jsx'
 import * as api from '../lib/api.js'
 
 const CATEGORIES = ['Tops', 'Bottoms', 'Dresses', 'Outerwear', 'Shoes', 'Accessories', 'Bags']

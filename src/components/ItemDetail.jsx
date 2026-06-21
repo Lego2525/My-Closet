@@ -1,6 +1,6 @@
 // src/components/ItemDetail.jsx
 import { useState } from 'react'
-import { useAppState } from '../hooks/useAppState.js'
+import { useAppState } from '../hooks/useAppState.jsx'
 import * as api from '../lib/api.js'
 
 export default function ItemDetail({ item, onClose }) {
