@@ -229,7 +229,7 @@ export default function AddItem({ onClose }) {
                 <div style={{ fontSize: 12, marginTop: 4, color: 'var(--text-3)' }}>or skip — emoji will show instead</div>
               </div>}
         </div>
-        <input type="file" accept="image/*" capture="environment" onChange={handlePhoto} style={{ display: 'none' }} />
+        <input type="file" accept="image/*" onChange={handlePhoto} style={{ display: 'none' }} />
       </label>
 
       {/* Name */}
