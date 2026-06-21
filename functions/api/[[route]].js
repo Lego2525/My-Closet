@@ -72,7 +72,7 @@ export async function onRequest(context) {
       await env.PHOTOS.put(key, file.stream(), {
         httpMetadata: { contentType: file.type }
       })
-      const url = `https://pub-b8df4cd6e8b441a78f24ad120ea8068f.r2.dev/${key}`
+      const url = `https://pub-YOUR_ACCOUNT.r2.dev/${key}`
       return json({ url, key })
     }
 
@@ -410,6 +410,70 @@ Build a capsule packing list from their actual wardrobe. Maximize outfit re-use.
         return json(JSON.parse(data.content[0].text))
       } catch {
         return json({ error: 'Could not generate packing list' }, 500)
+      }
+    }
+
+    // ── URL IMPORT ─────────────────────────────────────────
+    if (path === '/ai/import-url' && method === 'POST') {
+      const body = await request.json()
+      const { url: productUrl } = body
+
+      // Fetch the page HTML
+      let pageText = ''
+      try {
+        const pageRes = await fetch(productUrl, {
+          headers: { 'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15' }
+        })
+        const html = await pageRes.text()
+        // Extract readable text — strip tags, limit length
+        pageText = html
+          .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+          .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+          .replace(/<[^>]+>/g, ' ')
+          .replace(/\s+/g, ' ')
+          .slice(0, 6000)
+      } catch(e) {
+        pageText = `URL: ${productUrl}`
+      }
+
+      const prompt = `You are helping import a clothing item from a product webpage into a wardrobe app.
+
+PAGE CONTENT:
+${pageText}
+
+Extract the product details and respond with JSON only — no other text:
+{
+  "name": "product name (short, descriptive)",
+  "brand": "brand name or null",
+  "category": "one of: tops, bottoms, dresses, outerwear, shoes, accessories, bags",
+  "colors": ["color1", "color2"],
+  "price": 99.99 or null,
+  "description": "one short phrase describing the style/cut e.g. oversized blazer, slip dress",
+  "image_url": "best product image URL from the page or null"
+}
+
+For image_url, look for og:image meta tag content or the main product image src. Must be a full URL starting with https://`
+
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': env.ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01',
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 512,
+          messages: [{ role: 'user', content: prompt }],
+        }),
+      })
+
+      const data = await response.json()
+      try {
+        const text = data.content[0].text.replace(/```json|```/g, '').trim()
+        return json(JSON.parse(text))
+      } catch {
+        return json({ name: '', brand: null, category: null, colors: [], price: null, image_url: null })
       }
     }
 

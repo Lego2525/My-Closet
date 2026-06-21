@@ -50,6 +50,10 @@ export const saveShoppingAnalysis = (data) => req('/shopping', { method: 'POST',
 // Weather
 export const getWeather = (lat, lon) => req(`/weather?lat=${lat}&lon=${lon}`)
 
+// URL Import
+export const importFromUrl = (url) =>
+  req('/ai/import-url', { method: 'POST', body: JSON.stringify({ url }) })
+
 // AI
 export const aiChat = (messages, context) =>
   req('/ai/chat', { method: 'POST', body: JSON.stringify({ messages, context }) })
