@@ -1,6 +1,6 @@
 // src/pages/Closet.jsx
 import { useState } from 'react'
-import { useAppState } from '../hooks/useAppState.jsx'
+import { useAppState } from '../hooks/useAppState.js'
 import AddItem from '../components/AddItem.jsx'
 import ItemDetail from '../components/ItemDetail.jsx'
 
@@ -15,6 +15,7 @@ export default function Closet() {
   const [selected, setSelected] = useState(null)
 
   const filtered = wardrobe.filter(item => {
+    if (item.status === 'archived') return false
     const matchCat = cat === 'All' || item.category.toLowerCase() === cat.toLowerCase()
     const matchSearch = !search || item.name.toLowerCase().includes(search.toLowerCase())
     return matchCat && matchSearch
