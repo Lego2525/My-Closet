@@ -111,39 +111,39 @@ export default function AddItem({ onClose }) {
         <button onClick={() => setMode('url')} style={{
           display: 'flex', alignItems: 'center', gap: 16, width: '100%',
           padding: '18px 16px', borderRadius: 'var(--radius)', marginBottom: 12,
-          border: '1px solid var(--border)', background: 'var(--bg)', cursor: 'pointer',
+          border: '1px solid var(--cream-mid)', background: 'var(--white)', cursor: 'pointer',
           textAlign: 'left',
         }}>
           <span style={{ fontSize: 32 }}>🔗</span>
           <div>
             <div style={{ fontWeight: 600, fontSize: 15, marginBottom: 3 }}>Import from website</div>
-            <div style={{ fontSize: 13, color: 'var(--text-2)' }}>Paste a link from Zara, ASOS, Net-a-Porter, anywhere — I'll fill in the details</div>
+            <div style={{ fontSize: 13, color: 'var(--ink-2)' }}>Paste a link from Zara, ASOS, Net-a-Porter, anywhere — I'll fill in the details</div>
           </div>
         </button>
 
         <button onClick={() => setMode('photo')} style={{
           display: 'flex', alignItems: 'center', gap: 16, width: '100%',
           padding: '18px 16px', borderRadius: 'var(--radius)', marginBottom: 12,
-          border: '1px solid var(--border)', background: 'var(--bg)', cursor: 'pointer',
+          border: '1px solid var(--cream-mid)', background: 'var(--white)', cursor: 'pointer',
           textAlign: 'left',
         }}>
           <span style={{ fontSize: 32 }}>📷</span>
           <div>
             <div style={{ fontWeight: 600, fontSize: 15, marginBottom: 3 }}>Take or upload a photo</div>
-            <div style={{ fontSize: 13, color: 'var(--text-2)' }}>Photograph something you own, or upload from your camera roll</div>
+            <div style={{ fontSize: 13, color: 'var(--ink-2)' }}>Photograph something you own, or upload from your camera roll</div>
           </div>
         </button>
 
         <button onClick={() => setMode('photo')} style={{
           display: 'flex', alignItems: 'center', gap: 16, width: '100%',
           padding: '18px 16px', borderRadius: 'var(--radius)',
-          border: '1px solid var(--border)', background: 'var(--bg)', cursor: 'pointer',
+          border: '1px solid var(--cream-mid)', background: 'var(--white)', cursor: 'pointer',
           textAlign: 'left',
         }}>
           <span style={{ fontSize: 32 }}>✏️</span>
           <div>
             <div style={{ fontWeight: 600, fontSize: 15, marginBottom: 3 }}>Add manually</div>
-            <div style={{ fontSize: 13, color: 'var(--text-2)' }}>Type the details yourself, no photo needed</div>
+            <div style={{ fontSize: 13, color: 'var(--ink-2)' }}>Type the details yourself, no photo needed</div>
           </div>
         </button>
       </div>
@@ -159,9 +159,9 @@ export default function AddItem({ onClose }) {
           <h1>Import from URL</h1>
         </div>
 
-        <div style={{ background: 'var(--pink-light)', borderRadius: 'var(--radius)', padding: 16, marginBottom: 20 }}>
-          <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 6 }}>✦ How it works</div>
-          <div style={{ fontSize: 13, color: 'var(--text)', lineHeight: 1.6 }}>
+        <div style={{ background: 'var(--copper-pale)', borderRadius: 'var(--radius)', padding: 16, marginBottom: 20 }}>
+          <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 6, color: 'var(--copper-dark)' }}>✦ How it works</div>
+          <div style={{ fontSize: 13, color: 'var(--ink-2)', lineHeight: 1.6 }}>
             Paste any product link. Your AI stylist will extract the name, brand, colors, price, and product image automatically — then you can review and save.
           </div>
         </div>
@@ -229,7 +229,7 @@ export default function AddItem({ onClose }) {
                 <div style={{ fontSize: 12, marginTop: 4, color: 'var(--text-3)' }}>or skip — emoji will show instead</div>
               </div>}
         </div>
-        <input type="file" accept="image/*" onChange={handlePhoto} style={{ display: 'none' }} />
+        <input type="file" accept="image/*" capture="environment" onChange={handlePhoto} style={{ display: 'none' }} />
       </label>
 
       {/* Name */}
@@ -246,8 +246,8 @@ export default function AddItem({ onClose }) {
           {CATEGORIES.map(c => (
             <button key={c} onClick={() => set('category', c.toLowerCase())} style={{
               padding: '7px 14px', borderRadius: 20, fontSize: 13,
-              background: form.category === c.toLowerCase() ? 'var(--pink)' : 'var(--bg-2)',
-              color: form.category === c.toLowerCase() ? 'white' : 'var(--text-2)',
+              background: form.category === c.toLowerCase() ? 'var(--copper)' : 'var(--cream-dark)',
+              color: form.category === c.toLowerCase() ? 'white' : 'var(--ink-2)',
               border: 'none',
             }}>{c}</button>
           ))}
@@ -261,9 +261,9 @@ export default function AddItem({ onClose }) {
           {COLORS.map(c => (
             <button key={c} onClick={() => toggle('colors', c)} style={{
               padding: '6px 12px', borderRadius: 20, fontSize: 12,
-              background: form.colors.includes(c) ? 'var(--pink-light)' : 'var(--bg-2)',
-              color: form.colors.includes(c) ? 'var(--pink-dark)' : 'var(--text-2)',
-              border: form.colors.includes(c) ? '1px solid var(--pink)' : '1px solid transparent',
+              background: form.colors.includes(c) ? 'var(--copper-light)' : 'var(--cream-dark)',
+              color: form.colors.includes(c) ? 'var(--copper-dark)' : 'var(--ink-2)',
+              border: form.colors.includes(c) ? '1px solid var(--copper)' : '1px solid transparent',
             }}>{c}</button>
           ))}
         </div>
@@ -276,8 +276,8 @@ export default function AddItem({ onClose }) {
           {VIBES.map(v => (
             <button key={v} onClick={() => toggle('vibes', v)} style={{
               padding: '6px 12px', borderRadius: 20, fontSize: 12,
-              background: form.vibes.includes(v) ? '#EEEDFE' : 'var(--bg-2)',
-              color: form.vibes.includes(v) ? '#3C3489' : 'var(--text-2)',
+              background: form.vibes.includes(v) ? '#EEEDFE' : 'var(--cream-dark)',
+              color: form.vibes.includes(v) ? '#3C3489' : 'var(--ink-2)',
               border: form.vibes.includes(v) ? '1px solid #7F77DD' : '1px solid transparent',
             }}>{v}</button>
           ))}
@@ -291,8 +291,8 @@ export default function AddItem({ onClose }) {
           {SEASONS.map(s => (
             <button key={s} onClick={() => toggle('seasons', s)} style={{
               padding: '6px 12px', borderRadius: 20, fontSize: 12,
-              background: form.seasons.includes(s) ? '#EAF3DE' : 'var(--bg-2)',
-              color: form.seasons.includes(s) ? '#3B6D11' : 'var(--text-2)',
+              background: form.seasons.includes(s) ? '#EAF3DE' : 'var(--cream-dark)',
+              color: form.seasons.includes(s) ? '#3B6D11' : 'var(--ink-2)',
               border: form.seasons.includes(s) ? '1px solid #639922' : '1px solid transparent',
             }}>{s}</button>
           ))}
@@ -324,11 +324,11 @@ export default function AddItem({ onClose }) {
 
       {/* AI analyze */}
       {(form.name && form.category) && (
-        <div style={{ background: 'var(--pink-light)', borderRadius: 'var(--radius-sm)', padding: 14, marginBottom: 16 }}>
+        <div style={{ background: 'var(--copper-pale)', borderRadius: 'var(--radius-sm)', padding: 14, marginBottom: 16 }}>
           {aiAnalysis ? (
             <div>
-              <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 6 }}>✦ AI Stylist says:</div>
-              <div style={{ fontSize: 13, color: 'var(--text)', marginBottom: 8, lineHeight: 1.6 }}>{aiAnalysis.reason}</div>
+              <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 6, color: 'var(--copper-dark)' }}>✦ AI Stylist says:</div>
+              <div style={{ fontSize: 13, color: 'var(--ink-2)', marginBottom: 8, lineHeight: 1.6 }}>{aiAnalysis.reason}</div>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 {aiAnalysis.is_staple && <span className="badge badge-staple">Staple</span>}
                 {aiAnalysis.is_unique && <span className="badge badge-unique">Unique</span>}
@@ -337,7 +337,7 @@ export default function AddItem({ onClose }) {
             </div>
           ) : (
             <button className="btn" onClick={analyzeWithAI} disabled={analyzing}
-              style={{ width: '100%', justifyContent: 'center', background: 'transparent', borderColor: 'var(--pink)' }}>
+              style={{ width: '100%', justifyContent: 'center', background: 'transparent', borderColor: 'var(--copper)' }}>
               {analyzing ? <><div className="spinner" style={{ width: 16, height: 16 }} /> Analyzing…</> : '✦ Analyze with AI Stylist'}
             </button>
           )}
