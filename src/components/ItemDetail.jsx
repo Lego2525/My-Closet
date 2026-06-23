@@ -309,7 +309,7 @@ export default function ItemDetail({ item, onClose }) {
 
       {/* AI Analysis */}
       <div style={{ background: 'var(--pink-light)', borderRadius: 'var(--radius)', padding: 16, marginBottom: 12 }}>
-        <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 8 }}>✦ AI Stylist</div>
+        <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 8, color: '#993556' }}>✦ AI Stylist</div>
         {analysis ? (
           <>
             <p style={{ fontSize: 13, color: 'var(--text)', marginBottom: 10, lineHeight: 1.6 }}>{analysis.reason}</p>
