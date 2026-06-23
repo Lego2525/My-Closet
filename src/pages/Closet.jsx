@@ -73,7 +73,7 @@ export default function Closet() {
           {wardrobe.length === 0 && <button className="btn btn-primary" onClick={() => setShowAdd(true)}>Add First Item</button>}
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 10 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 10 }}>
           {filtered.map(item => (
             <ItemCard key={item.id} item={item} onClick={() => setSelected(item)} />
           ))}
