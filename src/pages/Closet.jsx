@@ -1,6 +1,6 @@
 // src/pages/Closet.jsx
 import { useState } from 'react'
-import { useAppState } from '../hooks/useAppState.jsx'
+import { useAppState } from '../hooks/useAppState.js'
 import AddItem from '../components/AddItem.jsx'
 import ItemDetail from '../components/ItemDetail.jsx'
 
@@ -44,9 +44,9 @@ export default function Closet() {
           { label: 'Staples', value: stats.staples },
           { label: 'Donate?', value: stats.donate },
         ].map(s => (
-          <div key={s.label} style={{ background: 'var(--bg-2)', borderRadius: 'var(--radius-sm)', padding: '10px 12px', textAlign: 'center' }}>
-            <div style={{ fontSize: 22, fontWeight: 700 }}>{s.value}</div>
-            <div style={{ fontSize: 11, color: 'var(--text-2)', marginTop: 2 }}>{s.label}</div>
+          <div key={s.label} style={{ background: 'var(--white)', border: '1px solid var(--cream-mid)', borderRadius: 'var(--radius-sm)', padding: '10px 12px', textAlign: 'center' }}>
+            <div style={{ fontSize: 22, fontWeight: 600, color: 'var(--ink)', fontFamily: 'var(--font-serif)' }}>{s.value}</div>
+            <div style={{ fontSize: 11, color: 'var(--ink-3)', marginTop: 2, letterSpacing: '0.5px', textTransform: 'uppercase' }}>{s.label}</div>
           </div>
         ))}
       </div>
@@ -58,13 +58,7 @@ export default function Closet() {
       {/* Category filter */}
       <div style={{ display: 'flex', gap: 8, overflowX: 'auto', marginBottom: 16, paddingBottom: 4 }}>
         {CATEGORIES.map(c => (
-          <button key={c} onClick={() => setCat(c)} style={{
-            flexShrink: 0, padding: '6px 14px', borderRadius: 20,
-            fontSize: 13, fontWeight: cat === c ? 600 : 400,
-            background: cat === c ? 'var(--pink-light)' : 'var(--bg-2)',
-            color: cat === c ? 'var(--pink-dark)' : 'var(--text-2)',
-            border: cat === c ? '1px solid var(--pink)' : '1px solid transparent',
-          }}>{c}</button>
+          <button key={c} onClick={() => setCat(c)} className={`chip${cat === c ? ' active' : ''}`} style={{ flexShrink: 0 }}>{c}</button>
         ))}
       </div>
 
@@ -95,22 +89,24 @@ function ItemCard({ item, onClick }) {
 
   return (
     <div onClick={onClick} style={{
-      border: '1px solid var(--border)', borderRadius: 'var(--radius)',
-      overflow: 'hidden', cursor: 'pointer', background: 'var(--bg)',
+      border: '1px solid var(--cream-mid)', borderRadius: 'var(--radius)',
+      overflow: 'hidden', cursor: 'pointer', background: 'var(--white)',
+      transition: 'border-color 0.15s',
     }}>
       <div style={{
-        height: 140, background: 'var(--bg-2)', display: 'flex',
+        height: 180, background: 'var(--cream-dark)', display: 'flex',
         alignItems: 'center', justifyContent: 'center', position: 'relative', fontSize: 48,
+        overflow: 'hidden',
       }}>
         {item.photo_url
-          ? <img src={item.photo_url} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          ? <img src={item.photo_url} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 8 }} />
           : emoji}
         {item.status === 'donate' && <span className="badge badge-donate" style={{ position: 'absolute', top: 6, right: 6 }}>Donate?</span>}
         {item.is_favorite ? <span style={{ position: 'absolute', top: 6, left: 6, fontSize: 16 }}>❤️</span> : null}
       </div>
-      <div style={{ padding: '8px 10px' }}>
-        <div style={{ fontSize: 13, fontWeight: 500, marginBottom: 2 }}>{item.name}</div>
-        <div style={{ fontSize: 11, color: 'var(--text-2)' }}>{colors.slice(0,2).join(' · ')}</div>
+      <div style={{ padding: '10px 12px', borderTop: '1px solid var(--cream-mid)' }}>
+        <div style={{ fontSize: 13, fontWeight: 500, marginBottom: 2, color: 'var(--ink)' }}>{item.name}</div>
+        <div style={{ fontSize: 11, color: 'var(--ink-3)' }}>{colors.slice(0,2).join(' · ')}</div>
       </div>
     </div>
   )
