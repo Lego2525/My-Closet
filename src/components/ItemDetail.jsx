@@ -308,11 +308,11 @@ export default function ItemDetail({ item, onClose }) {
       </div>
 
       {/* AI Analysis */}
-      <div style={{ background: 'var(--pink-light)', borderRadius: 'var(--radius)', padding: 16, marginBottom: 12 }}>
+      <div style={{ background: '#FBEAF0', borderRadius: 'var(--radius)', padding: 16, marginBottom: 12 }}>
         <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 8, color: '#993556' }}>✦ AI Stylist</div>
         {analysis ? (
           <>
-            <p style={{ fontSize: 13, color: 'var(--text)', marginBottom: 10, lineHeight: 1.6 }}>{analysis.reason}</p>
+            <p style={{ fontSize: 13, color: '#333', marginBottom: 10, lineHeight: 1.6 }}>{analysis.reason}</p>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 10 }}>
               {analysis.is_staple && <span className="badge badge-staple">Staple</span>}
               {analysis.is_unique && <span className="badge badge-unique">Unique piece</span>}
@@ -321,9 +321,9 @@ export default function ItemDetail({ item, onClose }) {
             </div>
             {analysis.styling_tips?.length > 0 && (
               <div>
-                <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--pink-dark)', marginBottom: 6 }}>Styling tips</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#993556', marginBottom: 6 }}>Styling tips</div>
                 {analysis.styling_tips.map((t,i) => (
-                  <div key={i} style={{ fontSize: 12, color: 'var(--text-2)', marginBottom: 3 }}>• {t}</div>
+                  <div key={i} style={{ fontSize: 12, color: '#555', marginBottom: 3 }}>• {t}</div>
                 ))}
               </div>
             )}
@@ -333,8 +333,8 @@ export default function ItemDetail({ item, onClose }) {
           </>
         ) : (
           <button className="btn" onClick={analyze} disabled={analyzing}
-            style={{ width: '100%', justifyContent: 'center', borderColor: 'var(--pink)', background: 'transparent' }}>
-            {analyzing ? <><div className="spinner" style={{ width: 16, height: 16 }} /> Analyzing…</> : 'Analyze this piece'}
+            style={{ width: '100%', justifyContent: 'center', borderColor: '#D4537E', background: 'white', color: '#993556' }}>
+            {analyzing ? <><div className="spinner" style={{ width: 16, height: 16 }} /> Analyzing…</> : '✦ Analyze this piece'}
           </button>
         )}
       </div>
