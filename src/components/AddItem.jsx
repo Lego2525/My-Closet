@@ -247,8 +247,9 @@ export default function AddItem({ onClose }) {
             <button key={c} onClick={() => set('category', c.toLowerCase())} style={{
               padding: '7px 14px', borderRadius: 20, fontSize: 13,
               background: form.category === c.toLowerCase() ? 'var(--copper)' : 'var(--cream-dark)',
-              color: form.category === c.toLowerCase() ? 'white' : 'var(--ink-2)',
-              border: 'none',
+              color: form.category === c.toLowerCase() ? '#FFFFFF' : 'var(--ink-2)',
+              border: form.category === c.toLowerCase() ? '1px solid var(--copper)' : '1px solid transparent',
+              fontWeight: form.category === c.toLowerCase() ? 600 : 400,
             }}>{c}</button>
           ))}
         </div>
@@ -261,9 +262,10 @@ export default function AddItem({ onClose }) {
           {COLORS.map(c => (
             <button key={c} onClick={() => toggle('colors', c)} style={{
               padding: '6px 12px', borderRadius: 20, fontSize: 12,
-              background: form.colors.includes(c) ? 'var(--copper-light)' : 'var(--cream-dark)',
-              color: form.colors.includes(c) ? 'var(--copper-dark)' : 'var(--ink-2)',
+              background: form.colors.includes(c) ? 'var(--copper)' : 'var(--cream-dark)',
+              color: form.colors.includes(c) ? '#FFFFFF' : 'var(--ink-2)',
               border: form.colors.includes(c) ? '1px solid var(--copper)' : '1px solid transparent',
+              fontWeight: form.colors.includes(c) ? 600 : 400,
             }}>{c}</button>
           ))}
         </div>
@@ -276,9 +278,10 @@ export default function AddItem({ onClose }) {
           {VIBES.map(v => (
             <button key={v} onClick={() => toggle('vibes', v)} style={{
               padding: '6px 12px', borderRadius: 20, fontSize: 12,
-              background: form.vibes.includes(v) ? '#EEEDFE' : 'var(--cream-dark)',
-              color: form.vibes.includes(v) ? '#3C3489' : 'var(--ink-2)',
-              border: form.vibes.includes(v) ? '1px solid #7F77DD' : '1px solid transparent',
+              background: form.vibes.includes(v) ? 'var(--copper)' : 'var(--cream-dark)',
+              color: form.vibes.includes(v) ? '#FFFFFF' : 'var(--ink-2)',
+              border: form.vibes.includes(v) ? '1px solid var(--copper)' : '1px solid transparent',
+              fontWeight: form.vibes.includes(v) ? 600 : 400,
             }}>{v}</button>
           ))}
         </div>
@@ -291,9 +294,10 @@ export default function AddItem({ onClose }) {
           {SEASONS.map(s => (
             <button key={s} onClick={() => toggle('seasons', s)} style={{
               padding: '6px 12px', borderRadius: 20, fontSize: 12,
-              background: form.seasons.includes(s) ? '#EAF3DE' : 'var(--cream-dark)',
-              color: form.seasons.includes(s) ? '#3B6D11' : 'var(--ink-2)',
-              border: form.seasons.includes(s) ? '1px solid #639922' : '1px solid transparent',
+              background: form.seasons.includes(s) ? 'var(--copper)' : 'var(--cream-dark)',
+              color: form.seasons.includes(s) ? '#FFFFFF' : 'var(--ink-2)',
+              border: form.seasons.includes(s) ? '1px solid var(--copper)' : '1px solid transparent',
+              fontWeight: form.seasons.includes(s) ? 600 : 400,
             }}>{s}</button>
           ))}
         </div>
