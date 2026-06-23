@@ -90,6 +90,9 @@ function ColorAnalysis({ onBack }) {
   const [form, setForm] = useState({
     season: colorProfile?.season || '',
     tone: colorProfile?.tone || '',
+    contrast_level: colorProfile?.contrast_level || '',
+    dominant_feature: colorProfile?.dominant_feature || '',
+    outfit_approach: colorProfile?.outfit_approach || '',
     priority_colors: tryParse(colorProfile?.priority_colors, []),
     avoid_colors: tryParse(colorProfile?.avoid_colors, []),
     notes: colorProfile?.notes || '',
@@ -99,6 +102,20 @@ function ColorAnalysis({ onBack }) {
   const SEASONS = ['Spring', 'Summer', 'Autumn', 'Winter']
   const TONES = ['Warm', 'Cool', 'Neutral']
   const COLORS = ['Black', 'White', 'Ivory', 'Camel', 'Tan', 'Brown', 'Rust', 'Olive', 'Forest Green', 'Sage', 'Teal', 'Navy', 'Blue', 'Cobalt', 'Lavender', 'Purple', 'Blush', 'Pink', 'Magenta', 'Red', 'Burgundy', 'Coral', 'Orange', 'Yellow', 'Gold', 'Silver', 'Grey', 'Charcoal']
+
+  const CONTRAST_LEVELS = [
+    { id: 'low', label: 'Low contrast', desc: 'Hair, skin, eyes are similar in depth/value', example: 'e.g. light skin, light/medium hair, light eyes — or all deep features' },
+    { id: 'medium', label: 'Medium contrast', desc: 'Some difference between features but not dramatic', example: 'e.g. medium skin, medium-dark hair' },
+    { id: 'high', label: 'High contrast', desc: 'Strong difference between features', example: 'e.g. Anne Hathaway — very light skin, very dark hair, dark eyes' },
+  ]
+
+  const OUTFIT_APPROACHES = [
+    { id: 'monochromatic', label: 'Monochromatic', desc: 'One color family, different shades', emoji: '🎨' },
+    { id: 'tonal', label: 'Tonal dressing', desc: 'Similar tones blended together', emoji: '🌊' },
+    { id: 'soft-contrast', label: 'Soft contrast', desc: 'Gentle color blocking, no stark opposites', emoji: '🌸' },
+    { id: 'bold-contrast', label: 'Bold contrast', desc: 'Strong color blocking, black + white, opposites', emoji: '⚡' },
+    { id: 'mixed', label: 'Mixed — context dependent', desc: 'Varies by occasion and mood', emoji: '✨' },
+  ]
 
   const toggleColor = (list, color) => {
     const current = form[list]
@@ -117,12 +134,13 @@ function ColorAnalysis({ onBack }) {
 
   return (
     <div className="page">
-      <BackHeader title="Color Analysis" onBack={onBack} />
-      <p style={{ fontSize: 13, color: 'var(--text-2)', marginBottom: 16 }}>
-        Set your color season to help your stylist prioritize what to wear and what to buy.
+      <BackHeader title="Color & Contrast Analysis" onBack={onBack} />
+      <p style={{ fontSize: 13, color: 'var(--text-2)', marginBottom: 20 }}>
+        Your color season + contrast level together tell your stylist exactly what will make you shine.
       </p>
 
-      <div style={{ marginBottom: 16 }}>
+      {/* Season */}
+      <div style={{ marginBottom: 20 }}>
         <SectionLabel>Color season</SectionLabel>
         <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
           {SEASONS.map(s => (
@@ -135,7 +153,8 @@ function ColorAnalysis({ onBack }) {
         </div>
       </div>
 
-      <div style={{ marginBottom: 16 }}>
+      {/* Tone */}
+      <div style={{ marginBottom: 20 }}>
         <SectionLabel>Tone</SectionLabel>
         <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
           {TONES.map(t => (
@@ -148,6 +167,51 @@ function ColorAnalysis({ onBack }) {
         </div>
       </div>
 
+      {/* Contrast Level */}
+      <div style={{ marginBottom: 20 }}>
+        <SectionLabel>Contrast level</SectionLabel>
+        <p style={{ fontSize: 12, color: 'var(--text-2)', marginTop: 4, marginBottom: 10, lineHeight: 1.5 }}>
+          How much contrast is there between your hair, skin, and eyes?
+        </p>
+        {CONTRAST_LEVELS.map(c => (
+          <button key={c.id} onClick={() => setForm(f => ({...f, contrast_level: c.id}))} style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%',
+            padding: '12px 14px', borderRadius: 'var(--radius-sm)', marginBottom: 8,
+            border: form.contrast_level === c.id ? '2px solid var(--pink)' : '1px solid var(--border)',
+            background: form.contrast_level === c.id ? '#FBEAF0' : 'var(--bg-2)',
+            cursor: 'pointer', textAlign: 'left',
+          }}>
+            <div style={{ fontWeight: 600, fontSize: 14, color: form.contrast_level === c.id ? '#993556' : 'var(--text)' }}>{c.label}</div>
+            <div style={{ fontSize: 12, color: 'var(--text-2)', marginTop: 3 }}>{c.desc}</div>
+            <div style={{ fontSize: 11, color: 'var(--text-3)', marginTop: 2, fontStyle: 'italic' }}>{c.example}</div>
+          </button>
+        ))}
+      </div>
+
+      {/* Outfit Approach */}
+      <div style={{ marginBottom: 20 }}>
+        <SectionLabel>Your outfit approach</SectionLabel>
+        <p style={{ fontSize: 12, color: 'var(--text-2)', marginTop: 4, marginBottom: 10, lineHeight: 1.5 }}>
+          What styling approach makes you look and feel your best?
+        </p>
+        {OUTFIT_APPROACHES.map(o => (
+          <button key={o.id} onClick={() => setForm(f => ({...f, outfit_approach: o.id}))} style={{
+            display: 'flex', alignItems: 'center', gap: 12, width: '100%',
+            padding: '12px 14px', borderRadius: 'var(--radius-sm)', marginBottom: 8,
+            border: form.outfit_approach === o.id ? '2px solid var(--pink)' : '1px solid var(--border)',
+            background: form.outfit_approach === o.id ? '#FBEAF0' : 'var(--bg-2)',
+            cursor: 'pointer', textAlign: 'left',
+          }}>
+            <span style={{ fontSize: 24 }}>{o.emoji}</span>
+            <div>
+              <div style={{ fontWeight: 600, fontSize: 14, color: form.outfit_approach === o.id ? '#993556' : 'var(--text)' }}>{o.label}</div>
+              <div style={{ fontSize: 12, color: 'var(--text-2)', marginTop: 2 }}>{o.desc}</div>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {/* Priority colors */}
       <div style={{ marginBottom: 16 }}>
         <SectionLabel>Priority colors — great on you</SectionLabel>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginTop: 8 }}>
@@ -176,7 +240,7 @@ function ColorAnalysis({ onBack }) {
       </div>
 
       <button className="btn btn-primary" onClick={save} disabled={saving} style={{ width: '100%', justifyContent: 'center', padding: 14 }}>
-        {saving ? 'Saving…' : 'Save color profile'}
+        {saving ? 'Saving…' : 'Save color & contrast profile'}
       </button>
     </div>
   )

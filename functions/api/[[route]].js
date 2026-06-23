@@ -72,7 +72,7 @@ export async function onRequest(context) {
       await env.PHOTOS.put(key, file.stream(), {
         httpMetadata: { contentType: file.type }
       })
-      const url = `https://pub-b8df4cd6e8b441a78f24ad120ea8068f.r2.dev/${key}`
+      const url = `https://pub-YOUR_ACCOUNT.r2.dev/${key}`
       return json({ url, key })
     }
 
@@ -124,11 +124,19 @@ export async function onRequest(context) {
 
     if (path === '/color-profile' && method === 'PUT') {
       const body = await request.json()
+      // Add new columns if they don't exist yet
+      try {
+        await env.DB.prepare(`ALTER TABLE color_profile ADD COLUMN contrast_level TEXT`).run()
+        await env.DB.prepare(`ALTER TABLE color_profile ADD COLUMN dominant_feature TEXT`).run()
+        await env.DB.prepare(`ALTER TABLE color_profile ADD COLUMN outfit_approach TEXT`).run()
+      } catch(e) { /* columns already exist, ignore */ }
       await env.DB.prepare(`
-        INSERT OR REPLACE INTO color_profile (id,season,tone,priority_colors,avoid_colors,notes,updated_at)
-        VALUES (1,?,?,?,?,?,datetime('now'))
+        INSERT OR REPLACE INTO color_profile (id,season,tone,contrast_level,dominant_feature,outfit_approach,priority_colors,avoid_colors,notes,updated_at)
+        VALUES (1,?,?,?,?,?,?,?,?,datetime('now'))
       `).bind(
         body.season||null, body.tone||null,
+        body.contrast_level||null, body.dominant_feature||null,
+        body.outfit_approach||null,
         JSON.stringify(body.priority_colors||[]),
         JSON.stringify(body.avoid_colors||[]),
         body.notes||null
@@ -503,10 +511,19 @@ function buildSystemPrompt(context) {
 WARDROBE SUMMARY:
 ${wardrobe ? `${wardrobe.length} items across categories: ${[...new Set(wardrobe.map(i=>i.category))].join(', ')}` : 'No wardrobe data yet.'}
 
-COLOR PROFILE:
+COLOR & CONTRAST PROFILE:
 Season: ${colorProfile?.season || 'not set'}
+Tone: ${colorProfile?.tone || 'not set'}
+Contrast level: ${colorProfile?.contrast_level || 'not set'}
+Outfit approach: ${colorProfile?.outfit_approach || 'not set'}
 Priority colors: ${colorProfile?.priority_colors ? JSON.parse(colorProfile.priority_colors).join(', ') : 'not set'}
 Avoid: ${colorProfile?.avoid_colors ? JSON.parse(colorProfile.avoid_colors).join(', ') : 'none'}
+
+CONTRAST GUIDANCE:
+${colorProfile?.contrast_level === 'low' ? 'LOW CONTRAST person — recommend monochromatic and tonal outfits. Avoid high contrast combinations like black + white which will overpower them. Tonal dressing and single color-family outfits are most flattering.' : ''}
+${colorProfile?.contrast_level === 'high' ? 'HIGH CONTRAST person — strong color blocking and contrast works beautifully. Monochromatic can look flat. Bold contrast combinations like black + white, navy + white, or strong color blocking will make them shine.' : ''}
+${colorProfile?.contrast_level === 'medium' ? 'MEDIUM CONTRAST person — flexible. Moderate contrast looks great, avoid extremes in either direction.' : ''}
+${colorProfile?.outfit_approach ? `Preferred outfit approach: ${colorProfile.outfit_approach}` : ''}
 
 ACTIVE STYLE BOARDS:
 ${moodboards?.filter(m=>m.is_active).map(m=>`• ${m.name}: ${m.description}`).join('\n') || 'None active'}
