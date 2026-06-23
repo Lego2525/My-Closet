@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom'
 
 const tabs = [
-  { to: '/', icon: '🪡', label: 'Closet' },
-  { to: '/outfits', icon: '✦', label: 'Outfits' },
-  { to: '/stylist', icon: '◈', label: 'Stylist' },
-  { to: '/trips', icon: '✈', label: 'Trips' },
-  { to: '/more', icon: '···', label: 'More' },
+  { to: '/', emoji: '👗', label: 'Closet' },
+  { to: '/outfits', emoji: '✨', label: 'Outfits' },
+  { to: '/stylist', emoji: '💬', label: 'Stylist' },
+  { to: '/trips', emoji: '✈️', label: 'Trips' },
+  { to: '/more', emoji: '⋯', label: 'More' },
 ]
 
 export default function BottomNav() {
@@ -21,7 +21,7 @@ export default function BottomNav() {
       {tabs.map(t => (
         <NavLink key={t.to} to={t.to} end={t.to==='/'} style={({ isActive }) => ({
           flex: 1, display: 'flex', flexDirection: 'column',
-          alignItems: 'center', justifyContent: 'center', gap: 3,
+          alignItems: 'center', justifyContent: 'center', gap: 2,
           textDecoration: 'none',
           color: isActive ? 'var(--copper)' : 'var(--ink-3)',
           fontSize: 10, fontWeight: isActive ? 600 : 400,
@@ -29,8 +29,8 @@ export default function BottomNav() {
           transition: 'color 0.15s',
           borderTop: isActive ? '2px solid var(--copper)' : '2px solid transparent',
         })}>
-          <span style={{ fontSize: 18, lineHeight: 1.2 }}>{t.icon}</span>
-          {t.label}
+          <span style={{ fontSize: 20, lineHeight: 1 }}>{t.emoji}</span>
+          <span>{t.label}</span>
         </NavLink>
       ))}
     </nav>
