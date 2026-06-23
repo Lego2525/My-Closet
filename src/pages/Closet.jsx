@@ -1,6 +1,6 @@
 // src/pages/Closet.jsx
 import { useState } from 'react'
-import { useAppState } from '../hooks/useAppState.js'
+import { useAppState } from '../hooks/useAppState.jsx'
 import AddItem from '../components/AddItem.jsx'
 import ItemDetail from '../components/ItemDetail.jsx'
 
