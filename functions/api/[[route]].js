@@ -72,7 +72,7 @@ export async function onRequest(context) {
       await env.PHOTOS.put(key, file.stream(), {
         httpMetadata: { contentType: file.type }
       })
-      const url = `https://pub-YOUR_ACCOUNT.r2.dev/${key}`
+      const url = `https://pub-b8df4cd6e8b441a78f24ad120ea8068f.r2.dev/${key}`
       return json({ url, key })
     }
 
